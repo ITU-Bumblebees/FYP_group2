@@ -11,7 +11,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import roc_auc_score, accuracy_score
 
+
+groundtruth = pd.read_csv(Config.example_ground_truth_path)
 
 def cut_image(picture):
     width, height = picture.size
@@ -35,8 +38,7 @@ def get_row(pict, pic):
 
     melanoma = groundtruth[groundtruth['image_id'] == pic]['melanoma'].iloc[0]
     return pd.DataFrame([[pic, assym, comp, color, melanoma]], 
-                        columns=['ISIC', 'Assymetry', 'Compactness', 'Color', 'Melanoma'], 
-                        index=[pic])
+                        columns=['ISIC', 'Assymetry', 'Compactness', 'Color', 'Melanoma'])
 
 
 def train_evaluate_classifiers(df):
@@ -59,7 +61,8 @@ def train_evaluate_classifiers(df):
     knn3 = KNeighborsClassifier(n_neighbors=3)
     knn3trained = knn3.fit(X_train, y_train)
 
-    knnlog = KNeighborsClassifier(n_neighbors=np.log(len(df["Melanoma"])))
+    loglen = int(np.log(len(df["Melanoma"])))
+    knnlog = KNeighborsClassifier(n_neighbors=loglen)
     knnlogtrained = knnlog.fit(X_train, y_train)
 
     tree = DecisionTreeClassifier()

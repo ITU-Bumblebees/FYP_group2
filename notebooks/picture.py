@@ -11,11 +11,26 @@ from statsmodels.robust import mad
 class Picture:
     def __init__(self, img, img_bw):
         self.img = img
-        self.img_bw = img_bw
+        self.img_bw = self.cut_image(img_bw)
 
     #ASSYMETRY
+    def cut_image(self, picture):
+        width, height = picture.size
+        image = np.array(picture)
+        
+        if width %2 != 0:
+            image = np.delete(image, -1, 1)
+
+        if height %2 != 0:
+            image = np.delete(image, -1, 0)
+
+        image = Image.fromarray(image)
+
+        return image
+
     def _assymetry(self, rot_img):
         ''' get the assymetry between the left and right part of a given binary mask '''
+
         width, height = rot_img.size #mask should be quadratic and therefore have equal dimension
         size = width * height
 
