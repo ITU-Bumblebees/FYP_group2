@@ -16,19 +16,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 
 groundtruth = pd.read_csv(Config.example_ground_truth_path)
 
-def cut_image(picture):
-    width, height = picture.size
-    image = np.array(picture)
-    
-    if width %2 != 0:
-        image = np.delete(image, -1, 1)
 
-    if height %2 != 0:
-        image = np.delete(image, -1, 0)
-
-    image = Image.fromarray(image)
-
-    return image
 
 
 def get_row(pict, pic):  

@@ -21,7 +21,9 @@ def main():
         
         tempdf = utils.get_row(pict, pic)
         features_df = pd.concat([features_df, tempdf], ignore_index=True, axis=0)
-        print(features_df, flush=True)
+        
+        if not features_df.shape[0] % 10:
+            print(f'Still going' + '.'* int(features_df.shape[0] / 10), end='\r')
 
     utils.train_evaluate_classifiers(features_df)
 
