@@ -10,7 +10,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 from imblearn.over_sampling import RandomOverSampler
 
 
-groundtruth = pd.read_csv('./../../2k/ISIC-2017_Training_Data_diagnosis.csv')
+groundtruth = pd.read_csv(Config.example_ground_truth_path)
 
 
 

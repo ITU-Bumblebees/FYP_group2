@@ -8,17 +8,16 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pickle
 
-groundtruth = pd.read_csv('./../../2k/ISIC-2017_Training_Data_diagnosis.csv')
-femalelst = pd.read_csv('./../../2k/male2k.csv')
+groundtruth = pd.read_csv(Config.example_ground_truth_path)
 
 def main():
-    image_names = [ID for ID in femalelst['image_id']]
+    image_names = [ID for ID in groundtruth['image_id']]
 
     features_df = pd.DataFrame(columns=['ISIC', 'Asymmetry', 'Compactness', 'Color', 'Melanoma'])
     for pic in image_names:
-        img_bw = Image.open('./../../2k/ISIC-2017_Training_masks' + os.sep + pic + '_segmentation.png') # open mask image
+        img_bw = Image.open(Config.mask_path + os.sep + pic + '_segmentation.png') # open mask image
 
-        img = plt.imread('./../../2k/ISIC-2017_Training_Data' + os.sep + pic + '.jpg') # open image
+        img = plt.imread(Config.images_path + os.sep + pic + '.jpg') # open image
         pict = Picture(img = img, img_bw = img_bw)
         
         tempdf = utils.get_row(pict, pic)
@@ -28,11 +27,11 @@ def main():
             print(f'Still going: {features_df.shape[0]}', end='\r')
 
 
-    features_df.to_csv('2kmale_features.csv', index=False)
+    #features_df.to_csv('2kmale_features.csv', index=False)
 
     treeclassifier = utils.train_evaluate_classifiers(features_df)
-    with open('2kmaletree.pickle', 'wb') as outfile:
-        pickle.dump(treeclassifier, outfile)
+    #with open('2kmaletree.pickle', 'wb') as outfile:
+    #    pickle.dump(treeclassifier, outfile)
 
 
 if __name__ == '__main__':
