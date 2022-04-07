@@ -27,7 +27,7 @@ def main():
             print(f'Still going' + '.'* int(features_df.shape[0] / 10), end='\r')
 
 
-    features_df.to_csv('file_features', index=False)
+    features_df.to_csv('file_features.csv', index=False)
 
     treeclassifier = utils.train_evaluate_classifiers(features_df)
     with open('treeclassifier.pickle', 'wb') as outfile:

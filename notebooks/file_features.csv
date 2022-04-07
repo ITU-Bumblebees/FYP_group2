@@ -1,4 +1,4 @@
-ISIC,Assymetry,Compactness,Color,Melanoma
+ISIC,Asymmetry,Compactness,Color,Melanoma
 ISIC_0001769,0.03,0.6703,0,0.0
 ISIC_0001852,0.01,0.8711,0,0.0
 ISIC_0001871,0.03,0.8713,0,0.0
