@@ -6,6 +6,7 @@ import task3XY_functions as utils
 from PIL import Image
 import matplotlib.pyplot as plt
 import pandas as pd
+import pickle
 
 groundtruth = pd.read_csv(Config.example_ground_truth_path)
 
@@ -25,7 +26,13 @@ def main():
         if not features_df.shape[0] % 10:
             print(f'Still going' + '.'* int(features_df.shape[0] / 10), end='\r')
 
-    utils.train_evaluate_classifiers(features_df)
+
+    features_df.to_csv('file_features', index=False)
+
+    treeclassifier = utils.train_evaluate_classifiers(features_df)
+    with open('treeclassifier.pickle', 'wb') as outfile:
+        pickle.dump(treeclassifier, outfile)
+
 
 if __name__ == '__main__':
     main()

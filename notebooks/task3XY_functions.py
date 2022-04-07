@@ -1,11 +1,6 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import Config
-from PIL import Image 
-import os, Config
-from skimage import morphology
-from statsmodels.robust import mad
 
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -86,5 +81,7 @@ def train_evaluate_classifiers(df):
     print(f"knnlog: {roc_auc_score(y_val, y_val_knnlog)}")
     print(f"tree: {roc_auc_score(y_val, y_val_tree)}")
     print(f"gauss: {roc_auc_score(y_val, y_val_gauss)}")
+
+    return treetrained
 
     
