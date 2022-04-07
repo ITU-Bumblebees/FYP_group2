@@ -13,7 +13,7 @@ groundtruth = pd.read_csv(Config.example_ground_truth_path)
 def main():
     image_names = [ID for ID in groundtruth['image_id']]
 
-    features_df = pd.DataFrame(columns=['ISIC', 'Assymetry', 'Compactness', 'Color', 'Melanoma'])
+    features_df = pd.DataFrame(columns=['ISIC', 'Asymmetry', 'Compactness', 'Color', 'Melanoma'])
     for pic in image_names:
         img_bw = Image.open(Config.mask_path + os.sep + pic + '_segmentation.png') # open mask image
 

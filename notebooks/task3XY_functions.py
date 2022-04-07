@@ -15,19 +15,19 @@ groundtruth = pd.read_csv(Config.example_ground_truth_path)
 
 
 def get_row(pict, pic):  
-    assym = pict.get_assymetry()
+    assym = pict.get_asymmetry()
     comp = pict.get_compactness()
     color = pict.get_color_variability()
 
     melanoma = groundtruth[groundtruth['image_id'] == pic]['melanoma'].iloc[0]
     return pd.DataFrame([[pic, assym, comp, color, melanoma]], 
-                        columns=['ISIC', 'Assymetry', 'Compactness', 'Color', 'Melanoma'])
+                        columns=['ISIC', 'Asymmetry', 'Compactness', 'Color', 'Melanoma'])
 
 
 def train_evaluate_classifiers(df):
     testies = df
 
-    X = testies[["Assymetry", "Compactness","Color"]]
+    X = testies[["Asymmetry", "Compactness","Color"]]
     y = testies["Melanoma"]
 
     #split data set into a train, test and valification set

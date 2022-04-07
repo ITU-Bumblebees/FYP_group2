@@ -13,7 +13,7 @@ class Picture:
         self.img = img
         self.img_bw = self.cut_image(img_bw)
 
-    #ASSYMETRY
+    #ASYMMETRY
     def cut_image(self, picture):
         width, height = picture.size
         image = np.array(picture)
@@ -28,8 +28,8 @@ class Picture:
 
         return image
 
-    def _assymetry(self, rot_img):
-        ''' get the assymetry between the left and right part of a given binary mask '''
+    def _asymmetry(self, rot_img):
+        ''' get the asymmetry between the left and right part of a given binary mask '''
 
         width, height = rot_img.size #mask should be quadratic and therefore have equal dimension
         size = width * height
@@ -46,11 +46,11 @@ class Picture:
         #get the binary difference between left an right
         symmetry = np.where(np.array(left) != np.array(right), 1, 0)
 
-        return np.sum(symmetry) / (size/2) #the percentage of assymetry 
+        return np.sum(symmetry) / (size/2) #the percentage of asymmetry 
     
-    def get_assymetry(self):
-        ''' get the assymetry for a given mask by folding it in half from multiple angles'''
-        return round(np.mean([self._assymetry(self.img_bw), self._assymetry(self.img_bw.rotate(30, expand= True)),self._assymetry(self.img_bw.rotate(60, expand= True)),self._assymetry(self.img_bw.rotate(90, expand= True))]),2)
+    def get_asymmetry(self):
+        ''' get the asymmetry for a given mask by folding it in half from multiple angles'''
+        return round(np.mean([self._asymmetry(self.img_bw), self._asymmetry(self.img_bw.rotate(30, expand= True)),self._asymmetry(self.img_bw.rotate(60, expand= True)),self._asymmetry(self.img_bw.rotate(90, expand= True))]),2)
 
     #BORDER
     def measure_area_perimeter(self): #Stolen from Veronika's github
