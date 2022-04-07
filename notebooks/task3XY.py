@@ -8,29 +8,30 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pickle
 
-groundtruth = pd.read_csv(Config.example_ground_truth_path)
+groundtruth = pd.read_csv('./../../2k/ISIC-2017_Training_Data_diagnosis.csv')
+femalelst = pd.read_csv('./../../2k/male2k.csv')
 
 def main():
-    image_names = [ID for ID in groundtruth['image_id']]
+    image_names = [ID for ID in femalelst['image_id']]
 
     features_df = pd.DataFrame(columns=['ISIC', 'Asymmetry', 'Compactness', 'Color', 'Melanoma'])
     for pic in image_names:
-        img_bw = Image.open(Config.mask_path + os.sep + pic + '_segmentation.png') # open mask image
+        img_bw = Image.open('./../../2k/ISIC-2017_Training_masks' + os.sep + pic + '_segmentation.png') # open mask image
 
-        img = plt.imread(Config.images_path + os.sep + pic + '.jpg') # open image
+        img = plt.imread('./../../2k/ISIC-2017_Training_Data' + os.sep + pic + '.jpg') # open image
         pict = Picture(img = img, img_bw = img_bw)
         
         tempdf = utils.get_row(pict, pic)
         features_df = pd.concat([features_df, tempdf], ignore_index=True, axis=0)
-        
+    
         if not features_df.shape[0] % 10:
-            print(f'Still going' + '.'* int(features_df.shape[0] / 10), end='\r')
+            print(f'Still going: {features_df.shape[0]}', end='\r')
 
 
-    features_df.to_csv('file_features.csv', index=False)
+    features_df.to_csv('2kmale_features.csv', index=False)
 
     treeclassifier = utils.train_evaluate_classifiers(features_df)
-    with open('treeclassifier.pickle', 'wb') as outfile:
+    with open('2kmaletree.pickle', 'wb') as outfile:
         pickle.dump(treeclassifier, outfile)
 
 
