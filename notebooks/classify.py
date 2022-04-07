@@ -27,7 +27,7 @@ def classify(img: Image, img_bw: np.ndarray):
     with open('treeclassifier.pickle', 'rb') as infile:
         tree = pickle.load(infile)
 
-    k = tree.predict_probabilities(features)
+    k = tree.predict_proba(features)
     print(k)
 
 if __name__ == '__main__':

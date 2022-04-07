@@ -15,6 +15,8 @@ class Picture:
 
     #ASYMMETRY
     def cut_image(self, picture):
+        picture = picture.crop(picture.getbbox())
+        
         width, height = picture.size
         image = np.array(picture)
         
